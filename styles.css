@@ -1,0 +1,34 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body {
+	background-color: #fefefe;
+	font-size: 14px;
+	line-height: 16px;	
+}
+
+.centred {
+	width: 640px;
+	margin: 0 auto;	
+}
+
+#editable {
+	position: relative;
+}
+
+#editable:hover {
+	cursor: text;	
+}
+
+.contents {
+	background-color: #fff;
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	z-index: 0;	
+}
+
+.row {
+	display: inline-block;
+	width: 100%;	
+}
