@@ -28,7 +28,36 @@ body {
 	z-index: 0;	
 }
 
-.row {
+.canvas_row {
 	display: inline-block;
-	width: 100%;	
+	position: relative;
+	marign-top: 0px;
+	width: 100%;
+	background-color: #fff;
+	z-index: 0;	
+}
+
+.canvas_p {
+	display: inline-block;
+	position: relative;
+	marign-top: 0px;
+	width: 100%;
+	background-color: #fff;
+	z-index: 1;	
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+.hidden_input_div {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: -1;	
+}
+
+.hidden_input_textarea {
+	width: 100px;
+	height: 5px;	
 }
