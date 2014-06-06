@@ -15,6 +15,12 @@ $(document).ready(function() {
 		el.focus();
 	}
 	
+	function dummyCaret(activeP) {
+		var sel = $("#t" + activeP).getSelection();
+		var caretPosition = sel.end;
+		$("#p" + activeP).append(caretPosition);
+	}
+	
 	function updateCanvasP(activeP) {
 		// pull the contents of the active p textarea into the corresponding display p
 		$("#p" + activeP).html($("#t" + activeP).val());
@@ -35,11 +41,11 @@ $(document).ready(function() {
 		$(".editable_p").on("keyup", function(e) {
 			if(e.keyCode == 13) {
 				e.preventDefault();
-				alert("hello");
 				currentP = createNewP(currentP);
 			}
 
-			updateCanvasP(currentP);	
+			updateCanvasP(currentP);
+			dummyCaret(currentP);	
 		});
 	}
 	
