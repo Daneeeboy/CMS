@@ -7,6 +7,51 @@ body {
 	line-height: 16px;	
 }
 
+.caret {
+	width: 1px;
+	height: 32px;
+	border-right: 1px #000000 solid;
+	-webkit-animation: blink 1s linear infinite;
+    -moz-animation: blink 1s linear infinite;
+    -ms-animation: blink 1s linear infinite;
+    -o-animation: blink 1s linear infinite;
+    animation: blink 1s linear infinite;
+}
+
+@-webkit-keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 1; }
+    50.01% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+@-moz-keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 1; }
+    50.01% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+@-ms-keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 1; }
+    50.01% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+@-o-keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 1; }
+    50.01% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 1; }
+    50.01% { opacity: 0; }
+    100% { opacity: 0; }
+}
 .centred {
 	width: 640px;
 	margin: 0 auto;	
@@ -53,11 +98,14 @@ body {
 .hidden_input_div {
 	position: absolute;
 	top: 0px;
-	left: 0px;
+	bottom: 0;
 	z-index: -1;	
 }
 
 .hidden_input_textarea {
 	width: 100px;
-	height: 5px;	
+	height: 0px;
+	border: 0px;
+	outline: none;
+	overflow: hidden;	
 }

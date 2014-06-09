@@ -18,12 +18,30 @@ $(document).ready(function() {
 	function dummyCaret(activeP) {
 		var sel = $("#t" + activeP).getSelection();
 		var caretPosition = sel.end;
-		$("#p" + activeP).append(caretPosition);
+		if(caretPosition == "") {
+			caretPosition = 0;	
+		}
+		var range = rangy.createRange();
+		var canvasP = document.getElementById("p" + activeP);
+		range.setStart(canvasP.childNodes[0], caretPosition);
+		range.setEnd(canvasP.childNodes[0], caretPosition);
+		var caretContainer = document.createElement("span");
+		caretContainer.setAttribute("id", "caret");
+		var caretContent = document.createTextNode("");
+		caretContainer.appendChild(caretContent);
+		$(caretContainer).addClass("caret");
+		range.insertNode(caretContainer);
+		
+		// get x y position of caret, move hidden textarea to match.
+		var caretPosition = $("#caret").position();
+		var caretParent = $("#caret").closest("p").attr("id");
+		activeP = caretParent.substr(1);
+		$("#d" + activeP).css("top", caretPosition.top +"px !important");
 	}
 	
 	function updateCanvasP(activeP) {
 		// pull the contents of the active p textarea into the corresponding display p
-		$("#p" + activeP).html($("#t" + activeP).val());
+		$("#p" + activeP).text($("#t" + activeP).val());
 	}
 	
 	function focusOnTextarea(currentP) {
@@ -34,7 +52,7 @@ $(document).ready(function() {
 	
 	function createNewTextarea(currentP) {
 		// create hidden textarea and container div.  Append to row. Focus on new textarea
-		$("#r" + currentP).append('<div class="hidden_input_div"><textarea id="t' + currentP + '" class="hidden_input_textarea editable_p"></textarea>');
+		$("#r" + currentP).append('<div class="hidden_input_div" id="#d' + currentP + '"><textarea id="t' + currentP + '" class="hidden_input_textarea editable_p"></textarea>');
 		focusOnTextarea(currentP);
 		
 		// when editing hidden editable p in textarea, update the canvas P
@@ -46,6 +64,11 @@ $(document).ready(function() {
 
 			updateCanvasP(currentP);
 			dummyCaret(currentP);	
+		});
+		
+		// when leaving the focus of the textarea, destroy any dummy carets
+		$(".editable_p").on("focusout", function(e) {
+			$(".caret").remove();
 		});
 	}
 	
