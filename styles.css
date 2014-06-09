@@ -3,13 +3,14 @@
 
 body {
 	background-color: #fefefe;
-	font-size: 14px;
-	line-height: 16px;	
+	font-size: 18px;
+	line-height: 32px;	
+	font-family: Helvetica, Arial, sans-serif;
 }
 
 .caret {
 	width: 1px;
-	height: 32px;
+	height: 2em;
 	border-right: 1px #000000 solid;
 	-webkit-animation: blink 1s linear infinite;
     -moz-animation: blink 1s linear infinite;
@@ -104,7 +105,8 @@ body {
 
 .hidden_input_textarea {
 	width: 100px;
-	height: 0px;
+	height: 100px;
+	margin-left: -200px;
 	border: 0px;
 	outline: none;
 	overflow: hidden;	
