@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="rangyinputs.min.js"></script>
+<script type="text/javascript" src="rangy-core.js"></script>
+
+<head>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	function findOffset(node, initialOffset) {
+		  var offset = initialOffset;
+		  var walker = node.ownerDocument.createTreeWalker(node, NodeFilter.SHOW_TEXT);
+		  while(walker.nextNode()) {
+			var text  = walker.currentNode.nodeValue;
+			if (text.length > offset) {
+			  return { node: walker.currentNode.parentNode, offset: offset };
+			}
+			offset -= text.length;
+		  }
+		  return { node: node, offset: initialOffset };
+		}
+		
+		var offset = findOffset(document.getElementById("test"), 5);
+		console.log(offset);
+});
+		
+</script>
+
+<meta charset="utf-8">
+<title>Untitled Document</title>
+</head>
+
+<body>
+
+<p id="test">This is a test</p>
+</body>
+</html>

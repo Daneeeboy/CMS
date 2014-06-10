@@ -37,6 +37,19 @@ $(document).ready(function() {
             return sel.rangeCount ? sel.getRangeAt(0) : null;
         }
 	
+	function findOffset(node, initialOffset) {
+		  var offset = initialOffset;
+		  var walker = node.ownerDocument.createTreeWalker(node, NodeFilter.SHOW_TEXT);
+		  while(walker.nextNode()) {
+			var text  = walker.currentNode.nodeValue;
+			if (text.length > offset) {
+			  return { node: walker.currentNode.parentNode, offset: offset };
+			}
+			offset -= text.length;
+		  }
+		  return { node: node, offset: initialOffset };
+		}
+	
 	function getSelectionOffset(element) {
 		var start = 0, end = 0;
 		var sel, range, priorRange;
@@ -129,7 +142,7 @@ $(document).ready(function() {
 		
 		if(e.keyCode == 13) {
 			e.preventDefault();
-			currentP = createNewP(activeP);
+			currentP = addParagraph(activeP);
 		}
 			
 		updateCanvasP(activeP);
@@ -169,11 +182,39 @@ $(document).ready(function() {
 				highlight();	
 			}
 			$("#t" + activeP).setSelection(sel.start, sel.end);
+			dummyCaret(activeP);
 			console.log(activeP + "," + sel.start + "," + sel.end);
 			//focusOnTextarea(activeP);
 		});
 
 		return newP;
+	}
+	
+	function addParagraph() {
+		var sel = $("#t" + activeP).getSelection();
+		var caretPosition = sel.end;
+		if(caretPosition == "") {
+			caretPosition = 0;	
+		}
+		
+		var contentLength = $("#r" + activeP).text().length;
+		if(caretPosition > contentLength) {
+			caretPosition = contentLength;	
+		}
+		
+		// create the caret span and insert into p.
+		var range = rangy.createRange();
+		var canvasP = document.getElementById("p" + activeP);
+		var poffset = findOffset(canvasP, caretPosition);
+		range.setStart(poffset.node, poffset.offset);
+		range.setEnd(poffset.node, poffset.offset);
+		
+		console.log(poffset);
+		
+		var caretContainer = document.createElement("br");
+		var caretContent = document.createTextNode("");
+		caretContainer.appendChild(caretContent);
+		range.insertNode(caretContainer);
 	}
 	
 	function createRow(currentP) {
