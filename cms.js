@@ -79,7 +79,7 @@ $(document).ready(function() {
 		}
 	};
 	
-	function dummyCaret(activeP) {
+	function dummyCaret() {
 		var sel = $("#t" + activeP).getSelection();
 		var caretPosition = sel.end;
 		if(caretPosition == "") {
@@ -160,9 +160,10 @@ $(document).ready(function() {
 		
 		$("#p" + newP).on("mouseup", function(e) {
 			e.stopPropagation();
+			console.log("got this far, fred");
 			activeE = getSelectedNode();
 			var sel = getSelectionOffset(activeE);
-			activeP = $(activeE).attr("id");
+			activeP = $(activeE).closest("p").attr("id");
 			activeP = activeP.substr(1);
 			if(sel.start != sel.end) {
 				highlight();	
