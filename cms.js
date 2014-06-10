@@ -32,10 +32,10 @@ $(document).ready(function() {
             }
         }
 		
-		function getFirstRange() {
-            var sel = rangy.getSelection();
-            return sel.rangeCount ? sel.getRangeAt(0) : null;
-        }
+	function getFirstRange() {
+       var sel = rangy.getSelection();
+       return sel.rangeCount ? sel.getRangeAt(0) : null;
+    }
 	
 	function findOffset(node, initialOffset) {
 		  var offset = initialOffset;
